@@ -16,7 +16,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AlarmFragment.OnDeleteAlarmListener{
 
     List<AlarmFragment> alarmList = new ArrayList<>();
 
@@ -47,4 +47,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void deleteAlarm(AlarmFragment afrag) {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.remove(afrag);
+        fragmentTransaction.commit();
+    }
 }
