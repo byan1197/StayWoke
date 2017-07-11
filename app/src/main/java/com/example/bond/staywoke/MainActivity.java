@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
         if (res.getCount() != 0){
 
             while(res.moveToNext()){
-                
+                    
             }
         }
 
