@@ -18,7 +18,7 @@
             android:orientation="vertical" >
 
             <TimePicker
-                android:id="@+id/timePicker"
+                android:id="@+id/clockPicker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -36,7 +36,7 @@
                 android:orientation="horizontal">
 
                 <ToggleButton
-                    android:id="@+id/toggleButton7"
+                    android:id="@+id/su"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -45,7 +45,7 @@
                     android:textOn="Su" />
 
                 <ToggleButton
-                    android:id="@+id/toggleButton6"
+                    android:id="@+id/mo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -54,7 +54,7 @@
                     android:textOn="M" />
 
                 <ToggleButton
-                    android:id="@+id/toggleButton5"
+                    android:id="@+id/tu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -63,7 +63,7 @@
                     android:textOn="Tu" />
 
                 <ToggleButton
-                    android:id="@+id/toggleButton4"
+                    android:id="@+id/we"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -72,7 +72,7 @@
                     android:textOn="W" />
 
                 <ToggleButton
-                    android:id="@+id/toggleButton3"
+                    android:id="@+id/th"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -81,7 +81,7 @@
                     android:textOn="Th" />
 
                 <ToggleButton
-                    android:id="@+id/toggleButton2"
+                    android:id="@+id/fr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -90,7 +90,7 @@
                     android:textOn="F" />
 
                 <ToggleButton
-                    android:id="@+id/toggleButton"
+                    android:id="@+id/sa"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

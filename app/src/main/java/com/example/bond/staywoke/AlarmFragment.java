@@ -8,8 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Switch;
+import android.widget.TimePicker;
+import android.widget.ToggleButton;
 
 /**
  * Created by bond on 26/06/17.
@@ -19,6 +23,11 @@ public class AlarmFragment extends Fragment {
 
     OnDeleteAlarmListener onDeleteAlarmListener;
     AlarmFragment current = this;
+    ImageButton editButton, deleteButton;
+    Alarm alarm;
+    TimePicker tp;
+    DatabaseHelper db;
+    boolean save = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -26,15 +35,17 @@ public class AlarmFragment extends Fragment {
         View view = inflater.inflate(R.layout.alarmfragment, container, false);
 
         //Instance varz
-        ImageButton editButton = (ImageButton) view.findViewById(R.id.editBtn);
-        ImageButton deleteButton = (ImageButton) view.findViewById(R.id.deleteBtn);
+        db = new DatabaseHelper(view.getContext());
+        editButton = (ImageButton) view.findViewById(R.id.editBtn);
+        deleteButton = (ImageButton) view.findViewById(R.id.deleteBtn);
         Switch onOffSwitch = (Switch) view.findViewById(R.id.onoffsw);
+
 
         //LISTENERS
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AlarmFragment.this.getActivity(), AlarmPop.class));
+                onDeleteAlarmListener.editAlarm(current);
             }
         });
 
@@ -45,12 +56,23 @@ public class AlarmFragment extends Fragment {
             }
         });
 
+        onOffSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+            }
+        });
+
         return view;
     }
 
+    public void setData(int time, String repeat) {
+
+    }
 
     public interface OnDeleteAlarmListener{
         public void deleteAlarm(AlarmFragment afrag);
+        public void editAlarm(AlarmFragment afrag);
     }
 
 
