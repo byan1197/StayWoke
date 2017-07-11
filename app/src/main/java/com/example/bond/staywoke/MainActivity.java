@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
                 fragmentList.add(current);
 
 
-                FragmentTransaction fragmentTransaction =getFragmentManager().beginTransaction();
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.add(R.id.fragmentContainer, current);
                 fragmentTransaction.commit();
 
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
         if (res.getCount() != 0){
 
             while(res.moveToNext()){
-
+                
             }
         }
 
