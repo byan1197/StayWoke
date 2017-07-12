@@ -2,6 +2,7 @@ package com.example.bond.staywoke;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
@@ -26,11 +27,26 @@ public class AlarmPop extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alarmpopwindow);
 
+        //retrieving intents
+        Bundle extras = getIntent().getExtras();
+        int id;
+        int reason= extras.getInt("reason");
+        //0 is add
+        //1 is edit
+        if (reason == 1){
+            id = extras.getInt("id");
+        }
+        else{
+            id = -1;
+        }
+
         //Instance variablezzzz and SET UP
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
         int height = dm.heightPixels;
+        DatabaseHelper db = new DatabaseHelper(this);
+        String repeatStr = "";
 
         getWindow().setLayout((int)(width*.8), (int)(height*.8));
         Button saveButton = (Button) findViewById(R.id.saveBtn);
@@ -43,6 +59,38 @@ public class AlarmPop extends Activity {
         dotw [4] = findViewById(R.id.th);
         dotw [5] = findViewById(R.id.fr);
         dotw [6] = findViewById(R.id.sa);
+
+        //set toggles
+        if (reason == 1){
+            Cursor res = db.getAllData();
+            res.moveToFirst();
+            for (int i = 0; i < id; i++){
+                res.moveToNext();
+            }
+
+            repeatStr=res.getString(4);
+            if (repeatStr.contains("Sun")){
+                dotw[0].toggle();
+            }
+            if (repeatStr.contains("Mon")){
+                dotw[1].toggle();
+            }
+            if (repeatStr.contains("Tu")){
+                dotw[2].toggle();
+            }
+            if (repeatStr.contains("Wed")){
+                dotw[3].toggle();
+            }
+            if (repeatStr.contains("Thu")){
+                dotw[4].toggle();
+            }
+            if (repeatStr.contains("Fri")){
+                dotw[5].toggle();
+            }
+            if (repeatStr.contains("Sat")){
+                dotw[6].toggle();
+            }
+        }
 
         //Listeners
         exitButton.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +144,6 @@ public class AlarmPop extends Activity {
                     repeatToSend = "Only Once";
                 }
                 alarm.setRepeat(repeatToSend);
-
 
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("alarm", alarm);

@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
 
         //instance variables
         aal = new AlarmArrayList();
-        populateAlarms();
         db = new DatabaseHelper(this);
+        populateAlarms();
         final FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         ImageButton addAlarm = (ImageButton)findViewById(R.id.addAlarmBtn);
@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), AlarmPop.class);
+                //if reason is 0, that means add
+                intent.putExtra("reason", 0);
                 startActivityForResult(intent, 1);
             }
         });
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (requestCode == 1) {
+        if (data!= null && requestCode == 1) {
 
             if (resultCode == Activity.RESULT_OK) {
                 Alarm resultingAlarm = (Alarm) data.getSerializableExtra("alarm");
@@ -69,32 +71,36 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
 
             }
         }
-        else if (requestCode == 2){
+        else if (data!= null && requestCode == 2){
             if (resultCode == Activity.RESULT_OK) {
                 Alarm resultingAlarm = (Alarm) data.getSerializableExtra("alarm");
                 int id = data.getIntExtra("id", 0);
-
+                System.out.println("alarm time: "+ String.valueOf(resultingAlarm.getHours())+":"+);
+                System.out.println("id is: "+ String.valueOf(id));
+                db.updateTime(id, resultingAlarm.getHours(), resultingAlarm.getMinutes(), resultingAlarm.getRepeat());
                 updateFragments();
-
             }
         }
     }
 
     private void populateAlarms(){
         Cursor res = db.getAllData();
+        if (res == null)
+            res.moveToFirst();
         if (res.getCount() != 0){
 
             FragmentTransaction fragmentTransaction =getFragmentManager().beginTransaction();
 
             while(res.moveToNext()){
                 AlarmFragment current = new AlarmFragment();
-                current.setData(res.getInt(1), res.getInt(2), res.getString(3));
+                current.setData(res.getInt(2), res.getInt(2), res.getString(3));
                 fragmentList.add(current);
                 fragmentTransaction.add(R.id.fragmentContainer, current);
             }
 
             fragmentTransaction.commit();
         }
+        res.close();
     }
 
     private void removeFragments(){
@@ -131,8 +137,11 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
 
     @Override
     public void editAlarm(AlarmFragment afrag) {
+
         int index = fragmentList.indexOf(afrag);
         Intent intent = new Intent(getApplicationContext(), AlarmPop.class);
+        //if reason is 1, that means edit
+        intent.putExtra("reason", 1);
         intent.putExtra("id", index);
         startActivityForResult(intent, 2);
 

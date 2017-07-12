@@ -55,4 +55,28 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         Cursor res = db.rawQuery("select * from "+TABLE_NAME, null);
         return res;
     }
+
+    public boolean updateTime(int id, int hours, int minutes, String repeat){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_1, id);
+        contentValues.put(COL_2, hours);
+        contentValues.put(COL_3, minutes);
+        contentValues.put(COL_4, repeat);
+        db.update(TABLE_NAME, contentValues, "ID = ?", new String[] {String.valueOf(id)});
+
+        return true;
+    }
+
+    public boolean updateOnOff(int id, String onoff){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_2, id);
+        contentValues.put(COL_5, onoff);
+        db.update(TABLE_NAME, contentValues, "ID = ?", new String[] {String.valueOf(id)});
+
+        return true;
+
+    }
+
 }
