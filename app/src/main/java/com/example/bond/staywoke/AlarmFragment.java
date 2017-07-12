@@ -12,6 +12,8 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
+import android.widget.TextClock;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
@@ -25,7 +27,7 @@ public class AlarmFragment extends Fragment {
     AlarmFragment current = this;
     ImageButton editButton, deleteButton;
     Alarm alarm;
-    TimePicker tp;
+    TextView clockTV, repeatTV;
     DatabaseHelper db;
     boolean save = false;
 
@@ -39,8 +41,8 @@ public class AlarmFragment extends Fragment {
         editButton = (ImageButton) view.findViewById(R.id.editBtn);
         deleteButton = (ImageButton) view.findViewById(R.id.deleteBtn);
         Switch onOffSwitch = (Switch) view.findViewById(R.id.onoffsw);
-
-
+        clockTV = (TextView) view.findViewById(R.id.displayClock);
+        repeatTV = (TextView) view.findViewById(R.id.displayClock);
         //LISTENERS
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,8 +68,9 @@ public class AlarmFragment extends Fragment {
         return view;
     }
 
-    public void setData(int time, String repeat) {
-
+    public void setData(int hours, int minutes, String repeat) {
+        clockTV.setText(String.valueOf(hours)+":"+String.valueOf(minutes));
+        repeatTV.setText(repeat);
     }
 
     public interface OnDeleteAlarmListener{

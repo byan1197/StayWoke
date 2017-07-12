@@ -76,12 +76,6 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
 
                 updateFragments();
 
-                /*AlarmFragment current = new AlarmFragment();
-                fragmentList.add(current);
-                FragmentTransaction fragmentTransaction =getFragmentManager().beginTransaction();
-                fragmentTransaction.add(R.id.fragmentContainer, current);
-                fragmentTransaction.commit();*/
-
             }
         }
     }
@@ -90,15 +84,25 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
         Cursor res = db.getAllData();
         if (res.getCount() != 0){
 
-            while(res.moveToNext()){
-                    
-            }
-        }
+            FragmentTransaction fragmentTransaction =getFragmentManager().beginTransaction();
 
+            while(res.moveToNext()){
+                AlarmFragment current = new AlarmFragment();
+                current.setData(res.getInt(1), res.getInt(2), res.getString(3));
+                fragmentList.add(current);
+                fragmentTransaction.add(R.id.fragmentContainer, current);
+            }
+
+            fragmentTransaction.commit();
+        }
     }
 
     private void removeFragments(){
-
+        FragmentTransaction fragmentTransaction =getFragmentManager().beginTransaction();
+        for (AlarmFragment fragment : fragmentList){
+            fragmentTransaction.remove(fragment);
+        }
+        fragmentTransaction.commit();
     }
 
     private void updateFragments(){

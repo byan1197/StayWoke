@@ -58,10 +58,45 @@ public class AlarmPop extends Activity {
             @Override
             public void onClick(View view) {
                 //retrieving stuff
+                String repeatToSend = "";
+                boolean noneChecked = true;
                 alarm= new Alarm();
                 alarm.setHours(tp.getHour());
                 alarm.setMinutes(tp.getMinute());
                 alarm.setOnOff("on");
+                if (dotw[0].isChecked()){
+                    repeatToSend = "Sun ";
+                    noneChecked = false;
+                }
+                if (dotw[1].isChecked()){
+                    repeatToSend = "Mon ";
+                    noneChecked = false;
+                }
+                if (dotw[2].isChecked()){
+                    repeatToSend = "Tue ";
+                    noneChecked = false;
+                }
+                if (dotw[3].isChecked()){
+                    repeatToSend = "Wed ";
+                    noneChecked = false;
+                }
+                if (dotw[4].isChecked()){
+                    repeatToSend = "Thurs ";
+                    noneChecked = false;
+                }
+                if (dotw[5].isChecked()){
+                    repeatToSend = "Fri ";
+                    noneChecked = false;
+                }
+                if (dotw[6].isChecked()){
+                    repeatToSend = "Sat ";
+                    noneChecked = false;
+                }
+                if (noneChecked){
+                    repeatToSend = "Only Once";
+                }
+                alarm.setRepeat(repeatToSend);
+
 
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("alarm", alarm);
