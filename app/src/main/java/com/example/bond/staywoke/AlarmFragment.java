@@ -72,6 +72,7 @@ public class AlarmFragment extends Fragment {
             clockTV.setText(String.valueOf(hours)+":"+minutes);
             repeatTV.setText(bundle.getString("repeat"));
         }
+
         onOffSwitch.setChecked(true);
         onDeleteAlarmListener.onOff(bundle.getInt("id"), true, bundle.getInt("hours"), bundle.getInt("minutes"), bundle.getString("repeat"));
 
