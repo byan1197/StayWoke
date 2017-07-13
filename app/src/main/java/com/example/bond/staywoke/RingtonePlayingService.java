@@ -33,10 +33,33 @@ public class RingtonePlayingService extends Service{
         Log.i("LocalService", "Received start id " + startId + ": " + intent);
         NotificationManager notifyManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         //SET UP AN INTENT THAT GOES TO THE MAIN ACTIVITY
-        Intent intentMainActivity = new Intent(this.getApplicationContext(), MainActivity.class);
+        Intent gameIntent = new Intent(this.getApplicationContext(), DefaultDisable.class);
+        int gameId= intent.getExtras().getInt("spinner");
+
+        if (gameId == 0) {
+            gameIntent = new Intent(this.getApplicationContext(), DefaultDisable.class);
+        }
+        else if (gameId == 1){
+            gameIntent = new Intent(this.getApplicationContext(), Trivia.class);
+        }
+        else if (gameId == 2){
+            gameIntent = new Intent(this.getApplicationContext(), MathGame.class);
+        }
+        else if (gameId == 3){
+            gameIntent = new Intent(this.getApplicationContext(), RPS.class);
+        }
+        else if (gameId == 4){
+            gameIntent = new Intent(this.getApplicationContext(), DefaultDisable.class);
+        }
+        else if (gameId == 5){
+            gameIntent = new Intent(this.getApplicationContext(), DefaultDisable.class);
+        }
+
+
+        //Intent intentMainActivity = new Intent(this.getApplicationContext(), MainActivity.class);
         //make the notification parameters
         //set up a pending intent
-        PendingIntent pendingIntentMainactivity = PendingIntent.getActivity(this,0,intentMainActivity,0);
+        PendingIntent pendingIntentMainactivity = PendingIntent.getActivity(this,0,gameIntent,0);
 
         Notification notificationPopup = new Notification.Builder(this)
                 .setContentTitle("An alarm is going off!")
@@ -47,6 +70,8 @@ public class RingtonePlayingService extends Service{
                 .build();
         notifyManager.notify(0,notificationPopup);
 
+
+        gameIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         boolean state = intent.getExtras().getBoolean("isOn");
 
@@ -62,7 +87,7 @@ public class RingtonePlayingService extends Service{
 
         if (state)
             System.out.println("IN SERVICE: IT IS ON");
-        else
+        else if (!state)
             System.out.println("IN SERVICE: IT IS OFF");
 
         mediaSong = MediaPlayer.create(this, R.raw.ring);
@@ -70,11 +95,11 @@ public class RingtonePlayingService extends Service{
         if (!this.isRunning && startId ==1){//start the ringtone
             mediaSong = MediaPlayer.create(this, R.raw.ring);
             mediaSong.start();
+            startActivity(gameIntent);
             this.isRunning=true;
             this.startId=0;
         }
-        else if (!this.isRunning && startId == 0){
-            mediaSong = MediaPlayer.create(this, R.raw.ring);
+        else if (this.isRunning && startId == 0){
             mediaSong.stop();
             mediaSong.reset();
             this.isRunning=false;
@@ -83,7 +108,12 @@ public class RingtonePlayingService extends Service{
         }
         else if (this.isRunning && startId==1){
             this.isRunning = true;
-            this.startId = 0;
+            this.startId = 1;
+        }
+        else if (!this.isRunning && startId==0){
+            this.isRunning = false;
+            this.startId=0;
+
         }
         else{
             mediaSong.stop();

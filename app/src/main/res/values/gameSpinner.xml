@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gameSpin">Select a puzzle!</string>
+    <string-array name="gameArray">
+        <item>No puzzle</item>
+        <item>Trivia</item>
+        <item>Math Game</item>
+        <item>Rock Paper Scissors</item>
+        <item>Take a Picture</item>
+        <item>Handwriting recognition</item>
+    </string-array>
+</resources>

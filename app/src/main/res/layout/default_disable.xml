@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextClock
+        android:id="@+id/textClock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+
+    <TextView
+        android:id="@+id/Notes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="NOTES"
+        android:textAlignment="center"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="insert notes here"
+        android:textAlignment="center" />
+
+    <Button
+        android:id="@+id/snoozeBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Snooze" />
+
+    <Button
+        android:id="@+id/offBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Turn Off" />
+
+</LinearLayout>

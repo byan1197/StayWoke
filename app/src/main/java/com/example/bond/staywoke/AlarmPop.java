@@ -10,8 +10,10 @@ import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
@@ -26,7 +28,8 @@ public class AlarmPop extends Activity {
     int reason;
     TimePicker tp;
     ToggleButton[] dotw= new ToggleButton[7];
-
+    Spinner spinner;
+    ArrayAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +50,10 @@ public class AlarmPop extends Activity {
         }
 
         //Instance variablezzzz and SET UP
+        spinner = (Spinner)findViewById(R.id.puzzleSpinner);
+        adapter = ArrayAdapter.createFromResource(this, R.array.gameArray, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
@@ -156,6 +163,7 @@ public class AlarmPop extends Activity {
                     returnIntent.putExtra("id", extras.getInt("id"));
                 }
                 returnIntent.putExtra("alarm", alarm);
+                returnIntent.putExtra("spinner", spinner.getSelectedItemPosition());
                 setResult(Activity.RESULT_OK, returnIntent);
                 AlarmPop.this.finish();
             }
