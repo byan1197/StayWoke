@@ -35,7 +35,6 @@ public class RingtonePlayingService extends Service{
         //SET UP AN INTENT THAT GOES TO THE MAIN ACTIVITY
         Intent gameIntent = new Intent(this.getApplicationContext(), DefaultDisable.class);
         int gameId= intent.getExtras().getInt("spinner");
-        System.out.println("IN SERVICE, GAMEID IS: "+gameId);
 
         if (gameId == 0) {
             gameIntent = new Intent(this.getApplicationContext(), DefaultDisable.class);
@@ -73,7 +72,6 @@ public class RingtonePlayingService extends Service{
 
 
         gameIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(gameIntent);
 
         boolean state = intent.getExtras().getBoolean("isOn");
 
@@ -89,7 +87,7 @@ public class RingtonePlayingService extends Service{
 
         if (state)
             System.out.println("IN SERVICE: IT IS ON");
-        else
+        else if (!state)
             System.out.println("IN SERVICE: IT IS OFF");
 
         mediaSong = MediaPlayer.create(this, R.raw.ring);
@@ -97,11 +95,11 @@ public class RingtonePlayingService extends Service{
         if (!this.isRunning && startId ==1){//start the ringtone
             mediaSong = MediaPlayer.create(this, R.raw.ring);
             mediaSong.start();
+            startActivity(gameIntent);
             this.isRunning=true;
             this.startId=0;
         }
-        else if (!this.isRunning && startId == 0){
-            mediaSong = MediaPlayer.create(this, R.raw.ring);
+        else if (this.isRunning && startId == 0){
             mediaSong.stop();
             mediaSong.reset();
             this.isRunning=false;
@@ -110,7 +108,12 @@ public class RingtonePlayingService extends Service{
         }
         else if (this.isRunning && startId==1){
             this.isRunning = true;
-            this.startId = 0;
+            this.startId = 1;
+        }
+        else if (!this.isRunning && startId==0){
+            this.isRunning = false;
+            this.startId=0;
+
         }
         else{
             mediaSong.stop();
