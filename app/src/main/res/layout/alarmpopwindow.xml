@@ -46,11 +46,12 @@
                 android:text="Repeat:"
                 android:textAllCaps="false"
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-                android:textColor="#FFFFFF" />
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="24sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="55dp"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp">
@@ -58,44 +59,48 @@
                 <ToggleButton
                     android:id="@+id/su"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="Su"
                     android:textColorLink="@color/colorPrimary"
                     android:textOff="Su"
-                    android:textOn="Su" />
+                    android:textOn="Su"
+                    android:textSize="16sp" />
 
                 <ToggleButton
                     android:id="@+id/mo"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="ToggleButton"
                     android:textOff="M"
-                    android:textOn="M" />
+                    android:textOn="M"
+                    android:textSize="16sp" />
 
                 <ToggleButton
                     android:id="@+id/tu"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="ToggleButton"
                     android:textOff="Tu"
-                    android:textOn="Tu" />
+                    android:textOn="Tu"
+                    android:textSize="16sp" />
 
                 <ToggleButton
                     android:id="@+id/we"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="ToggleButton"
                     android:textOff="W"
-                    android:textOn="W" />
+                    android:textOn="W"
+                    android:textSize="16sp" />
 
                 <ToggleButton
                     android:id="@+id/th"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="ToggleButton"
                     android:textOff="Th"
@@ -104,7 +109,7 @@
                 <ToggleButton
                     android:id="@+id/fr"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="ToggleButton"
                     android:textOff="F"
@@ -113,7 +118,7 @@
                 <ToggleButton
                     android:id="@+id/sa"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="ToggleButton"
                     android:textOff="Sa"
@@ -133,7 +138,7 @@
 
                 <Button
                     android:id="@+id/saveBtn"
-                    android:layout_width="220dp"
+                    android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:background="?attr/colorControlHighlight"
                     android:fontFamily="sans-serif-condensed"
@@ -145,13 +150,13 @@
 
                 <Button
                     android:id="@+id/exitBtn"
-                    android:layout_width="50dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="?attr/colorControlHighlight"
                     android:fontFamily="sans-serif"
                     android:text="Exit"
-                    android:textColor="@android:color/holo_red_light"
+                    android:textColor="@android:color/darker_gray"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
