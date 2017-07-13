@@ -62,6 +62,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="Su"
+                    android:textColor="@color/colorPrimary"
                     android:textColorLink="@color/colorPrimary"
                     android:textOff="Su"
                     android:textOn="Su"
@@ -73,6 +74,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="ToggleButton"
+                    android:textColor="@color/colorPrimary"
                     android:textOff="M"
                     android:textOn="M"
                     android:textSize="16sp" />
@@ -83,6 +85,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="ToggleButton"
+                    android:textColor="@color/colorPrimary"
                     android:textOff="Tu"
                     android:textOn="Tu"
                     android:textSize="16sp" />
@@ -93,6 +96,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="ToggleButton"
+                    android:textColor="@color/colorPrimary"
                     android:textOff="W"
                     android:textOn="W"
                     android:textSize="16sp" />
@@ -103,8 +107,10 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="ToggleButton"
+                    android:textColor="@color/colorPrimary"
                     android:textOff="Th"
-                    android:textOn="Th" />
+                    android:textOn="Th"
+                    android:textSize="16sp" />
 
                 <ToggleButton
                     android:id="@+id/fr"
@@ -112,8 +118,10 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="ToggleButton"
+                    android:textColor="@color/colorPrimary"
                     android:textOff="F"
-                    android:textOn="F" />
+                    android:textOn="F"
+                    android:textSize="16sp" />
 
                 <ToggleButton
                     android:id="@+id/sa"
@@ -121,8 +129,10 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="ToggleButton"
+                    android:textColor="@color/colorPrimary"
                     android:textOff="Sa"
-                    android:textOn="Sa" />
+                    android:textOn="Sa"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <Space
