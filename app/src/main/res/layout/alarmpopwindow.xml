@@ -133,7 +133,7 @@
 
                 <Button
                     android:id="@+id/saveBtn"
-                    android:layout_width="240dp"
+                    android:layout_width="220dp"
                     android:layout_height="match_parent"
                     android:background="?attr/colorControlHighlight"
                     android:fontFamily="sans-serif-condensed"
@@ -145,7 +145,7 @@
 
                 <Button
                     android:id="@+id/exitBtn"
-                    android:layout_width="30dp"
+                    android:layout_width="50dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="?attr/colorControlHighlight"
