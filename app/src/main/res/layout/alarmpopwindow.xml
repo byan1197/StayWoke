@@ -23,14 +23,26 @@
                 android:id="@+id/clockPicker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:headerBackground="@color/colorPrimaryDark"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:headerBackground="@android:color/holo_blue_light"
                 android:numbersBackgroundColor="@android:color/white"
-                android:numbersSelectorColor="@color/colorPrimary"
+                android:numbersSelectorColor="@android:color/holo_blue_dark"
                 android:paddingBottom="50px" />
+
+            <TextView
+                android:id="@+id/puzzleText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:text="Select a Puzzle: "
+                android:textSize="24sp" />
 
             <Spinner
                 android:id="@+id/puzzleSpinner"
-                android:layout_width="200dp"
+                android:layout_width="270dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:spinnerMode="dialog" />
@@ -46,7 +58,6 @@
                 android:text="Repeat:"
                 android:textAllCaps="false"
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-                android:textColor="@color/colorPrimaryDark"
                 android:textSize="24sp" />
 
             <LinearLayout
@@ -142,32 +153,76 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:id="@+id/notesText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:paddingBottom="10px"
+                    android:paddingEnd="10dp"
+                    android:text="Notes"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp" />
+
+                <EditText
+                    android:id="@+id/notesField"
+                    android:layout_width="350dp"
+                    android:layout_height="110dp"
+                    android:layout_gravity="center"
+                    android:background="?attr/colorControlHighlight"
+                    android:ems="10"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="top|left"
+                    android:inputType="textMultiLine"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingTop="10dp"
+                    android:selectAllOnFocus="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/saveBtn"
-                    android:layout_width="200dp"
+                    android:id="@+id/exitBtn"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_weight="0.78"
                     android:background="?attr/colorControlHighlight"
-                    android:fontFamily="sans-serif-condensed"
-                    android:text="Save"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/holo_green_light"
-                    android:textSize="24sp"
+                    android:fontFamily="sans-serif"
+                    android:text="Cancel"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <Button
-                    android:id="@+id/exitBtn"
-                    android:layout_width="match_parent"
+                    android:id="@+id/saveBtn"
+                    android:layout_width="225dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:background="?attr/colorControlHighlight"
-                    android:fontFamily="sans-serif"
-                    android:text="Exit"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="18sp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Set"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/holo_blue_bright"
+                    android:textSize="28sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
