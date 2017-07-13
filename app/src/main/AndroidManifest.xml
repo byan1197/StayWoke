@@ -26,7 +26,8 @@
 
         <activity android:name=".RPS" />
         <activity android:name=".Trivia" />
-        <activity android:name=".Math"></activity>
+        <activity android:name=".Math" />
+        <activity android:name=".DefaultDisable"></activity>
     </application>
 
 </manifest>

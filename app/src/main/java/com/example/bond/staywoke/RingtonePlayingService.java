@@ -33,10 +33,34 @@ public class RingtonePlayingService extends Service{
         Log.i("LocalService", "Received start id " + startId + ": " + intent);
         NotificationManager notifyManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         //SET UP AN INTENT THAT GOES TO THE MAIN ACTIVITY
-        Intent intentMainActivity = new Intent(this.getApplicationContext(), MainActivity.class);
+        Intent gameIntent = new Intent(this.getApplicationContext(), DefaultDisable.class);
+        int gameId= intent.getExtras().getInt("spinner");
+        System.out.println("IN SERVICE, GAMEID IS: "+gameId);
+
+        if (gameId == 0) {
+            gameIntent = new Intent(this.getApplicationContext(), DefaultDisable.class);
+        }
+        else if (gameId == 1){
+            gameIntent = new Intent(this.getApplicationContext(), Trivia.class);
+        }
+        else if (gameId == 2){
+            gameIntent = new Intent(this.getApplicationContext(), MathGame.class);
+        }
+        else if (gameId == 3){
+            gameIntent = new Intent(this.getApplicationContext(), RPS.class);
+        }
+        else if (gameId == 4){
+            gameIntent = new Intent(this.getApplicationContext(), DefaultDisable.class);
+        }
+        else if (gameId == 5){
+            gameIntent = new Intent(this.getApplicationContext(), DefaultDisable.class);
+        }
+
+
+        //Intent intentMainActivity = new Intent(this.getApplicationContext(), MainActivity.class);
         //make the notification parameters
         //set up a pending intent
-        PendingIntent pendingIntentMainactivity = PendingIntent.getActivity(this,0,intentMainActivity,0);
+        PendingIntent pendingIntentMainactivity = PendingIntent.getActivity(this,0,gameIntent,0);
 
         Notification notificationPopup = new Notification.Builder(this)
                 .setContentTitle("An alarm is going off!")
@@ -47,6 +71,9 @@ public class RingtonePlayingService extends Service{
                 .build();
         notifyManager.notify(0,notificationPopup);
 
+
+        gameIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(gameIntent);
 
         boolean state = intent.getExtras().getBoolean("isOn");
 

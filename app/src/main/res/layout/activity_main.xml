@@ -6,8 +6,10 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        android:layout_above="@+id/addFAB"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="61dp"
+        android:layout_marginBottom="184dp">
 
         <LinearLayout
             android:id="@+id/container"
