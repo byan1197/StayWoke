@@ -19,7 +19,7 @@
             android:paddingTop="5dp">
 
             <LinearLayout
-                android:layout_width="240dp"
+                android:layout_width="220dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
@@ -52,7 +52,7 @@
 
             <Switch
                 android:id="@+id/onoffsw"
-                android:layout_width="110dp"
+                android:layout_width="120dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:switchTextAppearance="@style/TextAppearance.AppCompat" />

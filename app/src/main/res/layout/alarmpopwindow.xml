@@ -11,13 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@drawable/clockBackground">
+        android:background="@drawable/clock_background">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="10dp">
+            android:paddingBottom="20dp">
 
             <TimePicker
                 android:id="@+id/clockPicker"
@@ -32,17 +32,21 @@
                 android:id="@+id/puzzleSpinner"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:spinnerMode="dialog" />
 
             <TextView
                 android:id="@+id/repeatTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
                 android:paddingBottom="10px"
                 android:paddingLeft="10dp"
                 android:paddingTop="5dp"
                 android:text="Repeat:"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+                android:textAllCaps="false"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                android:textColor="#FFFFFF" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -123,31 +127,31 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="60dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/saveBtn"
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/colorButtonNormal"
-                    android:fontFamily="sans-serif"
+                    android:layout_width="240dp"
+                    android:layout_height="match_parent"
+                    android:background="?attr/colorControlHighlight"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="Save"
                     android:textAlignment="center"
-                    android:textColor="@android:color/holo_green_dark"
-                    android:textSize="18sp"
+                    android:textColor="@android:color/holo_green_light"
+                    android:textSize="24sp"
                     android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/exitBtn"
-                    android:layout_width="20dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@android:color/white"
+                    android:background="?attr/colorControlHighlight"
                     android:fontFamily="sans-serif"
                     android:text="Exit"
-                    android:textColor="@android:color/holo_red_dark"
+                    android:textColor="@android:color/holo_red_light"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
