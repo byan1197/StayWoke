@@ -62,8 +62,8 @@ public class RingtonePlayingService extends Service{
         PendingIntent pendingIntentMainactivity = PendingIntent.getActivity(this,0,gameIntent,0);
 
         Notification notificationPopup = new Notification.Builder(this)
-                .setContentTitle("An alarm is going off!")
-                .setContentText("CLiCK mE!")
+                .setContentTitle("An alarm is going off.")
+                .setContentText("CLICK TO DISABLE!")
                 .setSmallIcon(R.drawable.ic_access_alarms_black_24dp)
                 .setContentIntent(pendingIntentMainactivity)
                 .setAutoCancel(true)

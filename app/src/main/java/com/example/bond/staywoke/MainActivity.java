@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
                 bundle.putInt("minutes", res.getInt(2));
                 bundle.putString("repeat", res.getString(3));
                 bundle.putString("onoff", res.getString(4));
+                System.out.println("onoff is: "+ res.getString(4));
                 bundle.putInt("game", res.getInt(5));
                 current.setArguments(bundle);
                 fragmentTransaction.add(R.id.fragmentContainer, current);
@@ -130,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
     }
 
     private void addNewToDB(Alarm alarm, int spinner){
-        boolean isInserted = db.insertData(alarm.getHours(), alarm.getMinutes(), alarm.getRepeat(), alarm.getOnOff(), spinner);
+        boolean isInserted = db.insertData(alarm.getHours(), alarm.getMinutes(), alarm.getRepeat(), "on", spinner);
         if (isInserted)
             Toast.makeText(MainActivity.this, "Alarm has been saved and set.", Toast.LENGTH_SHORT).show();
         else
@@ -175,12 +176,11 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
             db.updateOnOff(id, "on");
             cal.set(Calendar.HOUR_OF_DAY, hours);
             cal.set(Calendar.MINUTE, minutes);
-
             //Intent to the AlarmReceiver
             pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
         }
-        if(!b){
+        if(!b && pendingIntent!=null){
             sendBroadcast(alarmIntent);
             db.updateOnOff(id, "off");
             alarmManager.cancel(pendingIntent);

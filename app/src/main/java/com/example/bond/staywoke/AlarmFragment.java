@@ -76,14 +76,21 @@ public class AlarmFragment extends Fragment {
                 minutes+=" PM";
             clockTV.setText(String.valueOf(hours)+":"+minutes);
             repeatTV.setText(bundle.getString("repeat"));
+            System.out.println("IN ALARMFRAGMENT: "+bundle.getString("repeat"));
             spinPos = bundle.getInt("game");
             isOnFromDB = (bundle.getString("onoff")== "on"? true:false);
-
         }
 
-        onOffSwitch.setChecked(true);
-        if (isOnFromDB)
+        if (isOnFromDB) {
+            onOffSwitch.setChecked(true);
             onDeleteAlarmListener.onOff(bundle.getInt("id"), true, bundle.getInt("hours"), bundle.getInt("minutes"), bundle.getString("repeat"), spinPos);
+        }
+        else{
+            onOffSwitch.setChecked(false);
+            onDeleteAlarmListener.onOff(bundle.getInt("id"), false, bundle.getInt("hours"), bundle.getInt("minutes"), bundle.getString("repeat"), spinPos);
+        }
+
+
 
         //LISTENERS
         editButton.setOnClickListener(new View.OnClickListener() {

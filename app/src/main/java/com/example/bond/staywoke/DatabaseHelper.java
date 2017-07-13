@@ -76,6 +76,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_1, id);
         contentValues.put(COL_5, onoff);
+        System.out.println("FROM DB, ONOFF IS: "+onoff);
         db.update(TABLE_NAME, contentValues, "ID = ?", new String[] {String.valueOf(id)});
 
         return true;
