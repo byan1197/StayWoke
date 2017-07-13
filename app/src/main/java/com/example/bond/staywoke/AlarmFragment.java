@@ -43,8 +43,6 @@ public class AlarmFragment extends Fragment {
         editButton = (ImageButton) view.findViewById(R.id.editBtn);
         deleteButton = (ImageButton) view.findViewById(R.id.deleteBtn);
         Switch onOffSwitch = (Switch) view.findViewById(R.id.onoffsw);
-        onOffSwitch.setChecked(true);
-
         clockTV = (TextView) view.findViewById(R.id.displayClock);
         repeatTV = (TextView) view.findViewById(R.id.displayRepeat);
 
@@ -74,7 +72,10 @@ public class AlarmFragment extends Fragment {
             clockTV.setText(String.valueOf(hours)+":"+minutes);
             repeatTV.setText(bundle.getString("repeat"));
         }
+
+        onOffSwitch.setChecked(true);
         onDeleteAlarmListener.onOff(bundle.getInt("id"), true, bundle.getInt("hours"), bundle.getInt("minutes"), bundle.getString("repeat"));
+
         //LISTENERS
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override

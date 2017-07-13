@@ -166,17 +166,19 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
 
     @Override
     public void onOff(int id, boolean b, int hours, int minutes, String repeat) {
+        Intent alarmIntent = new Intent(context, AlarmReceiver.class);
+        alarmIntent.putExtra("isOn", b);
         if (b){
             db.updateOnOff(id, "on");
             cal.set(Calendar.HOUR_OF_DAY, hours);
             cal.set(Calendar.MINUTE, minutes);
 
             //Intent to the AlarmReceiver
-            Intent alarmIntent = new Intent(context, AlarmReceiver.class);
             pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
         }
         if(!b){
+            sendBroadcast(alarmIntent);
             db.updateOnOff(id, "off");
             alarmManager.cancel(pendingIntent);
         }
