@@ -29,7 +29,6 @@ public class AlarmFragment extends Fragment {
     Alarm alarm;
     Bundle bundle;
     Boolean isAM = true;
-    String onOff="";
     TextView clockTV, repeatTV;
     DatabaseHelper db;
     boolean save = false;
@@ -71,7 +70,6 @@ public class AlarmFragment extends Fragment {
             }
             else
                 minutes+=" PM";
-            onOff = bundle.getString("onoff");
             clockTV.setText(String.valueOf(hours)+":"+minutes);
             repeatTV.setText(bundle.getString("repeat"));
         }
@@ -93,7 +91,7 @@ public class AlarmFragment extends Fragment {
         onOffSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                onDeleteAlarmListener.onOff(b, bundle.getInt("hours"), bundle.getInt("minutes"), bundle.getString("repeat"), bundle.getString("onOff"));
+                onDeleteAlarmListener.onOff(bundle.getInt("id"), b, bundle.getInt("hours"), bundle.getInt("minutes"), bundle.getString("repeat"));
             }
         });
 
@@ -103,7 +101,7 @@ public class AlarmFragment extends Fragment {
     public interface OnDeleteAlarmListener{
         public void deleteAlarm(AlarmFragment afrag);
         public void editAlarm(AlarmFragment afrag);
-        public void onOff(boolean b, int hours, int minutes, String repeat, String onOff);
+        public void onOff(int id, boolean b, int hours, int minutes, String repeat);
     }
 
 

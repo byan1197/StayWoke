@@ -98,10 +98,10 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
                 AlarmFragment current = new AlarmFragment();
                 fragmentList.add(current);
                 Bundle bundle = new Bundle();
+                bundle.putInt("id", res.getInt(0));
                 bundle.putInt("hours", res.getInt(1));
                 bundle.putInt("minutes", res.getInt(2));
                 bundle.putString("repeat", res.getString(3));
-                bundle.putString("onoff", res.getString(4));
                 current.setArguments(bundle);
                 fragmentTransaction.add(R.id.fragmentContainer, current);
                 fragmentTransaction.commit();
@@ -163,17 +163,11 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
     }
 
     @Override
-    public void onOff(boolean b, int hours, int minutes, String repeat, String onOff) {
+    public void onOff(int id, boolean b, int hours, int minutes, String repeat) {
         if (b){
+            db.updateOnOff(id, "on");
             cal.set(Calendar.HOUR_OF_DAY, hours);
             cal.set(Calendar.MINUTE, minutes);
-
-            Cursor res = db.getAllData();
-            res.moveToFirst();
-            for (int i =0; i <index; i++){
-                res.moveToNext();
-            }
-            db.deleteData(res.getInt(0));
 
             //Intent to the AlarmReceiver
             Intent alarmIntent = new Intent(context, AlarmReceiver.class);
@@ -181,6 +175,7 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
             alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
         }
         if(!b){
+            db.updateOnOff(id, "off");
             alarmManager.cancel(pendingIntent);
         }
     }
