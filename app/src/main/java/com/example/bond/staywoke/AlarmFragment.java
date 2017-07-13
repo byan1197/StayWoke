@@ -27,6 +27,9 @@ public class AlarmFragment extends Fragment {
     AlarmFragment current = this;
     ImageButton editButton, deleteButton;
     Alarm alarm;
+    Bundle bundle;
+    Boolean isAM = true;
+    String onOff="";
     TextView clockTV, repeatTV;
     DatabaseHelper db;
     boolean save = false;
@@ -41,8 +44,38 @@ public class AlarmFragment extends Fragment {
         editButton = (ImageButton) view.findViewById(R.id.editBtn);
         deleteButton = (ImageButton) view.findViewById(R.id.deleteBtn);
         Switch onOffSwitch = (Switch) view.findViewById(R.id.onoffsw);
+        onOffSwitch.setChecked(true);
         clockTV = (TextView) view.findViewById(R.id.displayClock);
-        repeatTV = (TextView) view.findViewById(R.id.displayClock);
+        repeatTV = (TextView) view.findViewById(R.id.displayRepeat);
+
+        //bundle
+        bundle = getArguments();
+        if (bundle!= null){
+            int hours = -1;
+            if (bundle.getInt("hours") >12){
+                hours = bundle.getInt("hours") -12;
+                isAM = false;
+            }else{
+                isAM = true;
+            }
+            if (hours <= 0){
+               hours = 12;
+            }
+
+            String minutes = "";
+            if (bundle.getInt("minutes")<10)
+                minutes = "0";
+            minutes+=String.valueOf(bundle.getInt("minutes"));
+            if(isAM){
+                minutes+=" AM";
+            }
+            else
+                minutes+=" PM";
+            onOff = bundle.getString("onoff");
+            clockTV.setText(String.valueOf(hours)+":"+minutes);
+            repeatTV.setText(bundle.getString("repeat"));
+        }
+
         //LISTENERS
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,25 +90,20 @@ public class AlarmFragment extends Fragment {
                 onDeleteAlarmListener.deleteAlarm(current);
             }
         });
-
         onOffSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
+                onDeleteAlarmListener.onOff(b, bundle.getInt("hours"), bundle.getInt("minutes"), bundle.getString("repeat"), bundle.getString("onOff"));
             }
         });
 
         return view;
     }
 
-    public void setData(int hours, int minutes, String repeat) {
-        clockTV.setText(String.valueOf(hours)+":"+String.valueOf(minutes));
-        repeatTV.setText(repeat);
-    }
-
     public interface OnDeleteAlarmListener{
         public void deleteAlarm(AlarmFragment afrag);
         public void editAlarm(AlarmFragment afrag);
+        public void onOff(boolean b, int hours, int minutes, String repeat, String onOff);
     }
 
 

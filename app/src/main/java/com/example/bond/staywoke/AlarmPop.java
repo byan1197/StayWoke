@@ -18,6 +18,8 @@ import android.widget.ToggleButton;
 public class AlarmPop extends Activity {
 
     Alarm alarm;
+    Bundle extras;
+    int reason;
     TimePicker tp;
     ToggleButton[] dotw= new ToggleButton[7];
 
@@ -28,9 +30,9 @@ public class AlarmPop extends Activity {
         setContentView(R.layout.alarmpopwindow);
 
         //retrieving intents
-        Bundle extras = getIntent().getExtras();
+        extras = getIntent().getExtras();
         int id;
-        int reason= extras.getInt("reason");
+        reason= extras.getInt("reason");
         //0 is add
         //1 is edit
         if (reason == 1){
@@ -52,13 +54,13 @@ public class AlarmPop extends Activity {
         Button saveButton = (Button) findViewById(R.id.saveBtn);
         Button exitButton = (Button) findViewById(R.id.exitBtn);
         tp = (TimePicker) findViewById(R.id.clockPicker);
-        dotw [0] = findViewById(R.id.su);
-        dotw [1] = findViewById(R.id.mo);
-        dotw [2] = findViewById(R.id.tu);
-        dotw [3] = findViewById(R.id.we);
-        dotw [4] = findViewById(R.id.th);
-        dotw [5] = findViewById(R.id.fr);
-        dotw [6] = findViewById(R.id.sa);
+        dotw [0] = (ToggleButton)findViewById(R.id.su);
+        dotw [1] = (ToggleButton)findViewById(R.id.mo);
+        dotw [2] = (ToggleButton)findViewById(R.id.tu);
+        dotw [3] = (ToggleButton)findViewById(R.id.we);
+        dotw [4] = (ToggleButton)findViewById(R.id.th);
+        dotw [5] = (ToggleButton)findViewById(R.id.fr);
+        dotw [6] = (ToggleButton)findViewById(R.id.sa);
 
         //set toggles
         if (reason == 1){
@@ -146,6 +148,9 @@ public class AlarmPop extends Activity {
                 alarm.setRepeat(repeatToSend);
 
                 Intent returnIntent = new Intent();
+                if (reason == 1){
+                    returnIntent.putExtra("id", extras.getInt("id"));
+                }
                 returnIntent.putExtra("alarm", alarm);
                 setResult(Activity.RESULT_OK, returnIntent);
                 AlarmPop.this.finish();

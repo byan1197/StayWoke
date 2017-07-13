@@ -20,6 +20,9 @@
         <activity android:name=".AlarmPop"
             android:theme="@style/AppTheme.CustomTheme">
         </activity>
+        <service android:name=".RingtonePlayingService"/>
+
+        <receiver android:name=".AlarmReceiver"/>
     </application>
 
 </manifest>
