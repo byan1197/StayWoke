@@ -52,10 +52,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
                 android:paddingBottom="10px"
-                android:paddingLeft="10dp"
                 android:paddingTop="5dp"
-                android:text="Repeat:"
+                android:text="Repeat"
                 android:textAllCaps="false"
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
                 android:textSize="24sp" />
@@ -163,8 +163,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
+                    android:gravity="center"
                     android:paddingBottom="10px"
                     android:paddingEnd="10dp"
+                    android:paddingLeft="10dp"
                     android:text="Notes"
                     android:textColor="@android:color/black"
                     android:textSize="24sp" />
@@ -222,7 +224,7 @@
                     android:fontFamily="sans-serif-condensed"
                     android:text="Set"
                     android:textAlignment="center"
-                    android:textColor="@android:color/holo_blue_light"
+                    android:textColor="@android:color/white"
                     android:textSize="28sp"
                     android:textStyle="bold" />
 

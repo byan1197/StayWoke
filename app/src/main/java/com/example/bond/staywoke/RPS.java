@@ -10,12 +10,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.Random;
 
 public class RPS extends AppCompatActivity {
     Button b_scissors, b_rock, b_paper;
     ImageView iv_ComputerChoice, iv_HumanChoice;
-    TextView tv_score;
+    //TextView tv_score;
+    TextView human_score;
+    TextView cpu_score;
     int humanScore = 0, computerScore = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,17 +28,21 @@ public class RPS extends AppCompatActivity {
         b_paper = (Button) findViewById(R.id.b_paper);
         b_rock = (Button) findViewById(R.id.b_rock);
         b_scissors = (Button) findViewById(R.id.b_scissors);
+        human_score = (TextView) findViewById(R.id.humanPoints);
+        cpu_score = (TextView) findViewById(R.id.cpuPoints);
 
         iv_ComputerChoice = (ImageView) findViewById(R.id.iv_ComputerChoice);
         iv_HumanChoice = (ImageView) findViewById(R.id.iv_HumanChoice);
-        tv_score = (TextView) findViewById(R.id.tv_score);
+        //tv_score = (TextView) findViewById(R.id.tv_score);
         b_paper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 iv_HumanChoice.setImageResource(R.drawable.paper);
                 String message = playTurn("paper");
                 //Toast.makeText(MainActivity.this,message,Toast.LENGTH_SHORT).show();
-                tv_score.setText("Score: Human " + Integer.toString(humanScore) + " Computer: " + Integer.toString(computerScore));
+                //tv_score.setText("Score: Human " + Integer.toString(humanScore) + " Computer: " + Integer.toString(computerScore));
+                human_score.setText(Integer.toString(humanScore));
+                cpu_score.setText(Integer.toString(computerScore));
             }
         });
         b_rock.setOnClickListener(new View.OnClickListener() {
@@ -43,7 +51,9 @@ public class RPS extends AppCompatActivity {
                 iv_HumanChoice.setImageResource(R.drawable.rock);
                 String message = playTurn("rock");
                 //Toast.makeText(MainActivity.this,message,Toast.LENGTH_SHORT).show();
-                tv_score.setText("Score: Human " + Integer.toString(humanScore) + " Computer: " + Integer.toString(computerScore));
+                //tv_score.setText("Score: Human " + Integer.toString(humanScore) + " Computer: " + Integer.toString(computerScore));
+                human_score.setText(Integer.toString(humanScore));
+                cpu_score.setText(Integer.toString(computerScore));
             }
 
         });
@@ -53,7 +63,9 @@ public class RPS extends AppCompatActivity {
                 iv_HumanChoice.setImageResource(R.drawable.scissors);
                 String message = playTurn("scissors");
                // Toast.makeText(MainActivity.this,message,Toast.LENGTH_SHORT).show();
-                tv_score.setText("Score: Human " + Integer.toString(humanScore) + " Computer: " + Integer.toString(computerScore));
+                //tv_score.setText("Score: Human " + Integer.toString(humanScore) + " Computer: " + Integer.toString(computerScore));
+                human_score.setText(Integer.toString(humanScore));
+                cpu_score.setText(Integer.toString(computerScore));
             }
         });
     }

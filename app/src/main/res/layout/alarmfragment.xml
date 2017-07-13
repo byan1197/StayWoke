@@ -39,7 +39,8 @@
                     android:hint="10:30 AM"
                     android:paddingLeft="10dp"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-                    android:textSize="35sp" />
+                    android:textColor="@android:color/white"
+                    android:textSize="40sp" />
 
                 <TextView
                     android:id="@+id/displayRepeat"
