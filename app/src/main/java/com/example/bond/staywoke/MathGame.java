@@ -12,7 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Math extends AppCompatActivity {
+public class MathGame extends AppCompatActivity {
     RadioButton a,b,c,d,selected;
     public int choice,selectedId ,resourceId;
     RadioGroup radioGroup;
@@ -54,7 +54,7 @@ public class Math extends AppCompatActivity {
                 selectedId = radioGroup.getCheckedRadioButtonId();
                 selected = (RadioButton) findViewById(selectedId);
                 if (selected == null)
-                    Toast.makeText(Math.this, "Please answer the question", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MathGame.this, "Please answer the question", Toast.LENGTH_SHORT).show();
                 else {
                     if (tries ==0) {
                         askId = resourceId;
@@ -108,11 +108,13 @@ public class Math extends AppCompatActivity {
     }
     private void alert(boolean result){
         String message;
-        AlertDialog alertDialog = new AlertDialog.Builder(Math.this).create();
+        AlertDialog alertDialog = new AlertDialog.Builder(MathGame.this).create();
         alertDialog.setTitle("Result");
         if(tries==0) message = "Wrong Answer! Please try the next question.";
         else message = result? "Correct!": "Wrong Answer! You have "+ tries + " try left." ;
         alertDialog.setMessage(message);
         alertDialog.show();
     }
+
+
 }
