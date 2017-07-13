@@ -71,7 +71,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public boolean updateOnOff(int id, String onoff){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_2, id);
+        contentValues.put(COL_1, id);
         contentValues.put(COL_5, onoff);
         db.update(TABLE_NAME, contentValues, "ID = ?", new String[] {String.valueOf(id)});
 

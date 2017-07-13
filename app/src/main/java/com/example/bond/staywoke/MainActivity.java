@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -45,7 +46,8 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
         final FragmentManager fragmentManager = getFragmentManager();
         cal = Calendar.getInstance();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        ImageButton addAlarm = (ImageButton)findViewById(R.id.addAlarmBtn);
+        //ImageButton addAlarm = (ImageButton)findViewById(R.id.addAlarmBtn);
+        FloatingActionButton addAlarm = (FloatingActionButton) findViewById(R.id.addFAB);
 
         //Listeners
         addAlarm.setOnClickListener(new OnClickListener() {
