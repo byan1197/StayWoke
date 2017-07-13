@@ -10,7 +10,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="@drawable/clockBackground">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:headerBackground="@color/colorPrimaryDark"
-                android:numbersBackgroundColor="?attr/colorButtonNormal"
+                android:numbersBackgroundColor="@android:color/white"
                 android:numbersSelectorColor="@color/colorPrimary"
                 android:paddingBottom="50px" />
 
