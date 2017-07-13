@@ -204,7 +204,8 @@
                 <Button
                     android:id="@+id/exitBtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
                     android:layout_weight="0.78"
                     android:background="?attr/colorControlHighlight"
                     android:fontFamily="sans-serif"
@@ -221,7 +222,7 @@
                     android:fontFamily="sans-serif-condensed"
                     android:text="Set"
                     android:textAlignment="center"
-                    android:textColor="@android:color/holo_blue_bright"
+                    android:textColor="@android:color/holo_blue_light"
                     android:textSize="28sp"
                     android:textStyle="bold" />
 
