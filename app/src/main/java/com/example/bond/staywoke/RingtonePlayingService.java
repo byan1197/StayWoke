@@ -1,5 +1,6 @@
 package com.example.bond.staywoke;
 
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -18,7 +19,6 @@ import android.widget.Toast;
 
 public class RingtonePlayingService extends Service{
 
-
     // Unique Identification Number for the Notification.
     // We use it on Notification start, and to cancel it.
 
@@ -26,7 +26,6 @@ public class RingtonePlayingService extends Service{
     MediaPlayer mediaSong;
     int startId;
     boolean isRunning;
-
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -68,8 +67,6 @@ public class RingtonePlayingService extends Service{
                 .setContentIntent(pendingIntentMainactivity)
                 .setAutoCancel(true)
                 .build();
-        notifyManager.notify(0,notificationPopup);
-
 
         gameIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
@@ -95,6 +92,7 @@ public class RingtonePlayingService extends Service{
         if (!this.isRunning && startId ==1){//start the ringtone
             mediaSong = MediaPlayer.create(this, R.raw.ring);
             mediaSong.start();
+            notifyManager.notify(0,notificationPopup);
             startActivity(gameIntent);
             this.isRunning=true;
             this.startId=0;
@@ -102,6 +100,7 @@ public class RingtonePlayingService extends Service{
         else if (this.isRunning && startId == 0){
             mediaSong.stop();
             mediaSong.reset();
+            notifyManager.cancel(0);
             this.isRunning=false;
             this.startId=0;
 

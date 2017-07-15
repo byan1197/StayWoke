@@ -83,25 +83,25 @@ public class AlarmPop extends Activity {
 
             repeatStr=res.getString(4);
             if (repeatStr.contains("Sun")){
-                dotw[0].toggle();
+                dotw[0].setChecked(true);
             }
             if (repeatStr.contains("Mon")){
-                dotw[1].toggle();
+                dotw[1].setChecked(true);
             }
             if (repeatStr.contains("Tu")){
-                dotw[2].toggle();
+                dotw[2].setChecked(true);
             }
             if (repeatStr.contains("Wed")){
-                dotw[3].toggle();
+                dotw[3].setChecked(true);
             }
             if (repeatStr.contains("Thu")){
-                dotw[4].toggle();
+                dotw[4].setChecked(true);
             }
             if (repeatStr.contains("Fri")){
-                dotw[5].toggle();
+                dotw[5].setChecked(true);
             }
             if (repeatStr.contains("Sat")){
-                dotw[6].toggle();
+                dotw[6].setChecked(true);
             }
         }
 
@@ -126,31 +126,31 @@ public class AlarmPop extends Activity {
                 alarm.setMinutes(tp.getMinute());
                 alarm.setOnOff("on");
                 if (dotw[0].isChecked()){
-                    repeatToSend = "Sun ";
+                    repeatToSend += "Sun ";
                     noneChecked = false;
                 }
                 if (dotw[1].isChecked()){
-                    repeatToSend = "Mon ";
+                    repeatToSend += "Mon ";
                     noneChecked = false;
                 }
                 if (dotw[2].isChecked()){
-                    repeatToSend = "Tue ";
+                    repeatToSend += "Tue ";
                     noneChecked = false;
                 }
                 if (dotw[3].isChecked()){
-                    repeatToSend = "Wed ";
+                    repeatToSend += "Wed ";
                     noneChecked = false;
                 }
                 if (dotw[4].isChecked()){
-                    repeatToSend = "Thurs ";
+                    repeatToSend += "Thu ";
                     noneChecked = false;
                 }
                 if (dotw[5].isChecked()){
-                    repeatToSend = "Fri ";
+                    repeatToSend += "Fri ";
                     noneChecked = false;
                 }
                 if (dotw[6].isChecked()){
-                    repeatToSend = "Sat ";
+                    repeatToSend += "Sat ";
                     noneChecked = false;
                 }
                 if (noneChecked){

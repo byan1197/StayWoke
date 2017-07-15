@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements AlarmFragment.OnDeleteAlarmListener{
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
     Context context;
     Intent alarmIntent;
     AlarmManager alarmManager;
+    HashMap<Integer, Calendar> calenders = new HashMap<>(1000);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
         db = new DatabaseHelper(this);
         populateAlarms();
         final FragmentManager fragmentManager = getFragmentManager();
-        cal = Calendar.getInstance();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         //ImageButton addAlarm = (ImageButton)findViewById(R.id.addAlarmBtn);
         FloatingActionButton addAlarm = (FloatingActionButton) findViewById(R.id.addFAB);
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
             if (resultCode == Activity.RESULT_OK) {
 
                 Alarm resultingAlarm = (Alarm) data.getSerializableExtra("alarm");
+                System.out.println("ONOFF AFTER POPUP IS: "+resultingAlarm.getOnOff());
                 addNewToDB(resultingAlarm, data.getExtras().getInt("spinner"));
                 updateFragments();
             }
@@ -106,7 +108,6 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
                 bundle.putInt("minutes", res.getInt(2));
                 bundle.putString("repeat", res.getString(3));
                 bundle.putString("onoff", res.getString(4));
-                System.out.println("onoff is: "+ res.getString(4));
                 bundle.putInt("game", res.getInt(5));
                 current.setArguments(bundle);
                 fragmentTransaction.add(R.id.fragmentContainer, current);
@@ -169,16 +170,21 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
 
     @Override
     public void onOff(int id, boolean b, int hours, int minutes, String repeat, int spinPos) {
-
+        calenders.put(id, Calendar.getInstance());
         alarmIntent.putExtra("spinner",spinPos);
         alarmIntent.putExtra("isOn", b);
+
         if (b){
             db.updateOnOff(id, "on");
-            cal.set(Calendar.HOUR_OF_DAY, hours);
-            cal.set(Calendar.MINUTE, minutes);
+            calenders.get(id).set(Calendar.MINUTE, minutes);
+            calenders.get(id).set(Calendar.HOUR_OF_DAY, hours);
+            long diff = Calendar.getInstance().getTimeInMillis() - calenders.get(id).getTimeInMillis();
+            if (diff > 0){
+                calenders.get(id).add(Calendar.HOUR_OF_DAY, 24);
+            }
             //Intent to the AlarmReceiver
-            pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
+            pendingIntent = PendingIntent.getBroadcast(MainActivity.this, id, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, calenders.get(id).getTimeInMillis(), pendingIntent);
         }
         if(!b && pendingIntent!=null){
             sendBroadcast(alarmIntent);
