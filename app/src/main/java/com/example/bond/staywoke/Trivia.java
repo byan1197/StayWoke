@@ -1,5 +1,7 @@
 package com.example.bond.staywoke;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +24,7 @@ public class Trivia extends AppCompatActivity {
     String[] possbileOptions;
     Button submit;
     int choice,selectedId ;
+    Intent returnIntent;
     int tries;
     String asked,q;
 
@@ -29,6 +32,9 @@ public class Trivia extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trivia);toBeAsked = (TextView) findViewById(R.id.question);
+
+        returnIntent = new Intent();
+
         a = (RadioButton) findViewById(R.id.a);
         b = (RadioButton) findViewById(R.id.b);
         c = (RadioButton) findViewById(R.id.c);
@@ -58,8 +64,8 @@ public class Trivia extends AppCompatActivity {
                         setup();
                     }
                     if(selected.getText().equals(answers.get(Integer.toString(choice)))){
-                        alert(true);
-                        // Toast.makeText(MainActivity.this, "Correct", Toast.LENGTH_SHORT).show();
+                        setResult(Activity.RESULT_OK, returnIntent);
+                        Trivia.this.finish();
                         tries = 2;
                     }
 

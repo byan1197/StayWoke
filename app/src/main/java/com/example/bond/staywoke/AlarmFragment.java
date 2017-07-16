@@ -54,7 +54,7 @@ public class AlarmFragment extends Fragment {
 
             int hours = 123456;
 
-            if (bundle.getInt("hours") >12){
+            if (bundle.getInt("hours") >=12){
                 hours = bundle.getInt("hours") -12;
                 isAM = false;
             }else{
@@ -64,6 +64,7 @@ public class AlarmFragment extends Fragment {
             if (hours <= 0){
                hours = 12;
             }
+
             System.out.println("HOURS IN FRAG: "+hours);
             String minutes = "";
             if (bundle.getInt("minutes")<10)

@@ -1,6 +1,8 @@
 package com.example.bond.staywoke;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,11 +25,13 @@ public class MathGame extends AppCompatActivity {
     Button submit;
     String answer;
     Question asked;
+    Intent returnIntent;
     int askId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_math);questions = new Question[10];
+        returnIntent = new Intent();
         questions[0] = new Question("one","9",new String[]{"3","6","10","9"},"Solve");
         questions[1] = new Question("two","2,3",new String[]{"5,6","2,4","2,3","1,3"},"Solve for x");
         questions[2] = new Question("three","-2",new String[]{"-3","-4","-1","-2"},"Solve for x");
@@ -62,8 +66,8 @@ public class MathGame extends AppCompatActivity {
                         setup();
                     }
                     if(selected.getText().equals(answer)){
-                        alert(true);
-                        // Toast.makeText(MainActivity.this, "Correct", Toast.LENGTH_SHORT).show();
+                        setResult(Activity.RESULT_OK, returnIntent);
+                        MathGame.this.finish();
                         tries = 2;
                     }
 

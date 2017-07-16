@@ -1,6 +1,8 @@
 package com.example.bond.staywoke;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -21,10 +23,12 @@ public class RPS extends AppCompatActivity {
     TextView human_score;
     TextView cpu_score;
     int humanScore = 0, computerScore = 0;
+    Intent returnIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rps);
+        returnIntent = new Intent();
         b_paper = (Button) findViewById(R.id.b_paper);
         b_rock = (Button) findViewById(R.id.b_rock);
         b_scissors = (Button) findViewById(R.id.b_scissors);
@@ -105,9 +109,14 @@ public class RPS extends AppCompatActivity {
 
         else {
             humanScore++;
+            if (humanScore >= 3){
+                setResult(Activity.RESULT_OK, returnIntent);
+                RPS.this.finish();
+            }
             alert(true);
             return "You win";
         }
+
     }
     private void alert(boolean result){
         AlertDialog alertDialog = new AlertDialog.Builder(RPS.this).create();

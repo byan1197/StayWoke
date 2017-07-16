@@ -32,28 +32,12 @@ public class RingtonePlayingService extends Service{
         Log.i("LocalService", "Received start id " + startId + ": " + intent);
         NotificationManager notifyManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         //SET UP AN INTENT THAT GOES TO THE MAIN ACTIVITY
-        Intent gameIntent = new Intent(this.getApplicationContext(), DefaultDisable.class);
+        /*Intent gameIntent = new Intent(this.getApplicationContext(), DefaultDisable.class);
+        int gameId= intent.getExtras().getInt("spinner");*/
+
+        Intent gameIntent = new Intent(this.getApplicationContext(), MainActivity.class);
         int gameId= intent.getExtras().getInt("spinner");
-
-        if (gameId == 0) {
-            gameIntent = new Intent(this.getApplicationContext(), DefaultDisable.class);
-        }
-        else if (gameId == 1){
-            gameIntent = new Intent(this.getApplicationContext(), Trivia.class);
-        }
-        else if (gameId == 2){
-            gameIntent = new Intent(this.getApplicationContext(), MathGame.class);
-        }
-        else if (gameId == 3){
-            gameIntent = new Intent(this.getApplicationContext(), RPS.class);
-        }
-        else if (gameId == 4){
-            gameIntent = new Intent(this.getApplicationContext(), DefaultDisable.class);
-        }
-        else if (gameId == 5){
-            gameIntent = new Intent(this.getApplicationContext(), DefaultDisable.class);
-        }
-
+        gameIntent.putExtra("gameId", gameId);
 
         //Intent intentMainActivity = new Intent(this.getApplicationContext(), MainActivity.class);
         //make the notification parameters
@@ -90,6 +74,7 @@ public class RingtonePlayingService extends Service{
         mediaSong = MediaPlayer.create(this, R.raw.ring);
 
         if (!this.isRunning && startId ==1){//start the ringtone
+            System.out.println("IN SERVICE, !isRunning and on");
             mediaSong = MediaPlayer.create(this, R.raw.ring);
             mediaSong.start();
             notifyManager.notify(0,notificationPopup);
@@ -98,6 +83,7 @@ public class RingtonePlayingService extends Service{
             this.startId=0;
         }
         else if (this.isRunning && startId == 0){
+            System.out.println("IN SERVICE, isRunning and OFF");
             mediaSong.stop();
             mediaSong.reset();
             notifyManager.cancel(0);

@@ -32,8 +32,10 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
     ArrayList<AlarmFragment> fragmentList = new ArrayList<>();
     PendingIntent pendingIntent;
     Context context;
-    Intent alarmIntent;
+    Intent alarmIntent, gameIntent;
     AlarmManager alarmManager;
+    Bundle extras;
+    int gameId = -12;
     HashMap<Integer, Calendar> calenders = new HashMap<>(1000);
 
     @Override
@@ -42,6 +44,38 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
         setContentView(R.layout.activity_main);
 
         //instance variables
+        extras=getIntent().getExtras();
+        if (extras!=null){
+            gameId = extras.getInt("gameId");
+
+            if (gameId == 0) {
+                gameIntent = new Intent(this.getApplicationContext(), DefaultDisable.class);
+                startActivityForResult(gameIntent, 3);
+            }
+            else if (gameId == 1){
+                gameIntent = new Intent(this.getApplicationContext(), Trivia.class);
+                startActivityForResult(gameIntent, 3);
+            }
+            else if (gameId == 2){
+                gameIntent = new Intent(this.getApplicationContext(), MathGame.class);
+                startActivityForResult(gameIntent, 3);
+            }
+            else if (gameId == 3){
+                gameIntent = new Intent(this.getApplicationContext(), RPS.class);
+                startActivityForResult(gameIntent, 3);
+            }
+            else if (gameId == 4){
+                gameIntent = new Intent(this.getApplicationContext(), DefaultDisable.class);
+                startActivityForResult(gameIntent, 3);
+            }
+            else if (gameId == 5){
+                gameIntent = new Intent(this.getApplicationContext(), DefaultDisable.class);
+                startActivityForResult(gameIntent, 3);
+            }
+
+
+        }
+
         this.context=this;
         alarmIntent = new Intent(context, AlarmReceiver.class);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
@@ -91,6 +125,15 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
                 updateFragments();
             }
         }
+
+        else if (data!= null && requestCode == 3){
+            if (resultCode == Activity.RESULT_OK) {
+                alarmIntent.putExtra("isOn", false);
+                alarmIntent.putExtra("gameId", gameId);
+                sendBroadcast(alarmIntent);
+            }
+        }
+
     }
 
     private void populateAlarms(){
@@ -187,7 +230,6 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
             alarmManager.set(AlarmManager.RTC_WAKEUP, calenders.get(id).getTimeInMillis(), pendingIntent);
         }
         if(!b && pendingIntent!=null){
-            sendBroadcast(alarmIntent);
             db.updateOnOff(id, "off");
             alarmManager.cancel(pendingIntent);
         }
