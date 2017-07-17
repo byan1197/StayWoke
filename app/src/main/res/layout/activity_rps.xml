@@ -8,7 +8,7 @@
     tools:context="com.example.bond.staywoke.RPS">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/RPSAlarmNotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="top"
@@ -92,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/tv_ComputerChoice"
                 android:layout_alignBottom="@+id/tv_ComputerChoice"
-                android:layout_toEndOf="@+id/notes"
+                android:layout_toEndOf="@+id/mathAlarmNotes"
                 android:fontFamily="sans-serif"
                 android:text="Score: "
                 android:textAllCaps="false"
@@ -129,7 +129,7 @@
             android:layout_alignBaseline="@+id/tv_ComputerChoice"
             android:layout_alignBottom="@+id/tv_ComputerChoice"
             android:layout_gravity="center"
-            android:layout_toEndOf="@+id/notes"
+            android:layout_toEndOf="@+id/mathAlarmNotes"
             android:fontFamily="sans-serif"
             android:text="Player"
             android:textAllCaps="false"
@@ -170,7 +170,7 @@
                 android:layout_alignBaseline="@+id/tv_ComputerChoice"
                 android:layout_alignBottom="@+id/tv_ComputerChoice"
                 android:layout_gravity="center"
-                android:layout_toEndOf="@+id/notes"
+                android:layout_toEndOf="@+id/mathAlarmNotes"
                 android:fontFamily="sans-serif"
                 android:text="Score: "
                 android:textAllCaps="false"
@@ -260,7 +260,7 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView4"
+        android:layout_below="@+id/RPSAlarmNotes"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:paddingLeft="10dp"
@@ -273,7 +273,7 @@
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notes"
+        app:layout_constraintTop_toBottomOf="@+id/mathAlarmNotes"
         app:layout_constraintVertical_bias="0.136" />
 
 </RelativeLayout>

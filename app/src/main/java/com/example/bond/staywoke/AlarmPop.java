@@ -30,6 +30,7 @@ public class AlarmPop extends Activity {
     ToggleButton[] dotw= new ToggleButton[7];
     Spinner spinner;
     ArrayAdapter adapter;
+    EditText notesEdit;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,6 +60,7 @@ public class AlarmPop extends Activity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
         DatabaseHelper db = new DatabaseHelper(this);
+        notesEdit = (EditText) findViewById(R.id.notesField);
         String repeatStr = "";
 
         getWindow().setLayout((int)(width*.9), (int)(height*.9));
@@ -81,7 +83,7 @@ public class AlarmPop extends Activity {
                 res.moveToNext();
             }
 
-            repeatStr=res.getString(4);
+            repeatStr=res.getString(3);
             if (repeatStr.contains("Sun")){
                 dotw[0].setChecked(true);
             }
@@ -103,6 +105,10 @@ public class AlarmPop extends Activity {
             if (repeatStr.contains("Sat")){
                 dotw[6].setChecked(true);
             }
+            tp.setHour(res.getInt(1));
+            tp.setMinute(res.getInt(2));
+            spinner.setSelection(res.getInt(5));
+            notesEdit.setText(res.getString(6));
         }
 
         //Listeners
@@ -164,6 +170,7 @@ public class AlarmPop extends Activity {
                 }
                 returnIntent.putExtra("alarm", alarm);
                 returnIntent.putExtra("spinner", spinner.getSelectedItemPosition());
+                returnIntent.putExtra("note", String.valueOf(notesEdit.getText()));
                 setResult(Activity.RESULT_OK, returnIntent);
                 AlarmPop.this.finish();
             }

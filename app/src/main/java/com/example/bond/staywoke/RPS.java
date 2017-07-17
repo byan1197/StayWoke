@@ -21,19 +21,25 @@ public class RPS extends AppCompatActivity {
     ImageView iv_ComputerChoice, iv_HumanChoice;
     //TextView tv_score;
     TextView human_score;
-    TextView cpu_score;
+    TextView cpu_score, alarmNotes;
     int humanScore = 0, computerScore = 0;
     Intent returnIntent;
+    Bundle bundle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rps);
         returnIntent = new Intent();
+
+        bundle = getIntent().getExtras();
+
         b_paper = (Button) findViewById(R.id.b_paper);
         b_rock = (Button) findViewById(R.id.b_rock);
         b_scissors = (Button) findViewById(R.id.b_scissors);
         human_score = (TextView) findViewById(R.id.humanPoints);
         cpu_score = (TextView) findViewById(R.id.cpuPoints);
+        alarmNotes = (TextView) findViewById(R.id.RPSAlarmNotes);
+        alarmNotes.setText("ALARM NOTES: " + bundle.getString("note"));
 
         iv_ComputerChoice = (ImageView) findViewById(R.id.iv_ComputerChoice);
         iv_HumanChoice = (ImageView) findViewById(R.id.iv_HumanChoice);

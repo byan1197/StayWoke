@@ -25,6 +25,7 @@ public class AlarmReceiver extends BroadcastReceiver{
         Intent serviceIntent = new Intent(context, RingtonePlayingService.class);
         serviceIntent.putExtra("isOn", isOn);
         serviceIntent.putExtra("spinner", intent.getExtras().getInt("spinner"));
+        serviceIntent.putExtra("note", intent.getExtras().getString("note"));
         context.startService(serviceIntent);
 
 

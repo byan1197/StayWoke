@@ -21,6 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static final String COL_4= "REPEAT";
     public static final String COL_5= "ONOFF";
     public static final String COL_6= "GAME";
+    public static final String COL_7= "NOTES";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -28,7 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table "+TABLE_NAME+" (ID INTEGER PRIMARY KEY AUTOINCREMENT, HOURS INTEGER, MINUTES INTEGER, REPEAT TEXT, ONOFF TEXT, GAME INTEGER)");
+        db.execSQL("create table "+TABLE_NAME+" (ID INTEGER PRIMARY KEY AUTOINCREMENT, HOURS INTEGER, MINUTES INTEGER, REPEAT TEXT, ONOFF TEXT, GAME INTEGER, NOTES TEXT)");
     }
 
     @Override
@@ -37,7 +38,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    public boolean insertData(int hours, int minutes, String repeat, String onoff, int spinnerPos){
+    public boolean insertData(int hours, int minutes, String repeat, String onoff, int spinnerPos, String notes){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2, hours);
@@ -45,6 +46,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         contentValues.put(COL_4, repeat);
         contentValues.put(COL_5, onoff);
         contentValues.put(COL_6, spinnerPos);
+        contentValues.put(COL_7, notes);
         long result = db.insert(TABLE_NAME, null, contentValues);
         if (result == -1)
             return false;
@@ -58,7 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return res;
     }
 
-    public boolean updateTime(int id, int hours, int minutes, String repeat, int spinnerPos){
+    public boolean updateTime(int id, int hours, int minutes, String repeat, int spinnerPos, String notes){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_1, id);
@@ -66,6 +68,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         contentValues.put(COL_3, minutes);
         contentValues.put(COL_4, repeat);
         contentValues.put(COL_6, spinnerPos);
+        contentValues.put(COL_7, notes);
         db.update(TABLE_NAME, contentValues, "ID = ?", new String[] {String.valueOf(id)});
 
         return true;

@@ -24,6 +24,8 @@ public class MathGame extends AppCompatActivity {
     Question chosen;
     Button submit;
     String answer;
+    Bundle bundle;
+    TextView alarmNotes;
     Question asked;
     Intent returnIntent;
     int askId;
@@ -32,6 +34,7 @@ public class MathGame extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_math);questions = new Question[10];
         returnIntent = new Intent();
+        bundle = getIntent().getExtras();
         questions[0] = new Question("one","9",new String[]{"3","6","10","9"},"Solve");
         questions[1] = new Question("two","2,3",new String[]{"5,6","2,4","2,3","1,3"},"Solve for x");
         questions[2] = new Question("three","-2",new String[]{"-3","-4","-1","-2"},"Solve for x");
@@ -49,6 +52,8 @@ public class MathGame extends AppCompatActivity {
         d = (RadioButton) findViewById(R.id.d);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         submit = (Button) findViewById(R.id.submit);
+        alarmNotes = (TextView) findViewById(R.id.mathAlarmNotes);
+        alarmNotes.setText("ALARM NOTES: " + bundle.getString("note"));
         tries=2;
         asked = new Question("","",new String[]{""},"");
         setup(); askId=0;

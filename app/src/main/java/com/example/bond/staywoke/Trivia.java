@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -20,13 +19,14 @@ public class Trivia extends AppCompatActivity {
     HashMap questions,answers,options;
     RadioGroup radioGroup;
     RadioButton a,b,c,d,selected;
-    TextView toBeAsked;
+    TextView toBeAsked, alarmNotes;
     String[] possbileOptions;
     Button submit;
     int choice,selectedId ;
     Intent returnIntent;
     int tries;
     String asked,q;
+    Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,7 @@ public class Trivia extends AppCompatActivity {
         setContentView(R.layout.activity_trivia);toBeAsked = (TextView) findViewById(R.id.question);
 
         returnIntent = new Intent();
+        bundle = getIntent().getExtras();
 
         a = (RadioButton) findViewById(R.id.a);
         b = (RadioButton) findViewById(R.id.b);
@@ -43,6 +44,8 @@ public class Trivia extends AppCompatActivity {
         selectedId=5;
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         submit = (Button) findViewById(R.id.submit);
+        alarmNotes = (TextView) findViewById(R.id.mathAlarmNotes);
+        alarmNotes.setText("ALARM NOTES: " + bundle.getString("note"));
         riddle = new Riddle();
         questions = riddle.questions;
         answers = riddle.answers;

@@ -26,6 +26,7 @@ public class RingtonePlayingService extends Service{
     MediaPlayer mediaSong;
     int startId;
     boolean isRunning;
+    String notes;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -37,8 +38,9 @@ public class RingtonePlayingService extends Service{
 
         Intent gameIntent = new Intent(this.getApplicationContext(), MainActivity.class);
         int gameId= intent.getExtras().getInt("spinner");
+        notes = intent.getExtras().getString("note");
         gameIntent.putExtra("gameId", gameId);
-
+        gameIntent.putExtra("note", notes);
         //Intent intentMainActivity = new Intent(this.getApplicationContext(), MainActivity.class);
         //make the notification parameters
         //set up a pending intent

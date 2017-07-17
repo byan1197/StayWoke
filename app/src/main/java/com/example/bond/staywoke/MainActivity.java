@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
     Context context;
     Intent alarmIntent, gameIntent;
     AlarmManager alarmManager;
+    String notesForGame;
     Bundle extras;
     int gameId = -12;
     HashMap<Integer, Calendar> calenders = new HashMap<>(1000);
@@ -47,29 +48,36 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
         extras=getIntent().getExtras();
         if (extras!=null){
             gameId = extras.getInt("gameId");
+            notesForGame = extras.getString("note");
 
             if (gameId == 0) {
                 gameIntent = new Intent(this.getApplicationContext(), DefaultDisable.class);
+                gameIntent.putExtra("note", notesForGame);
                 startActivityForResult(gameIntent, 3);
             }
             else if (gameId == 1){
                 gameIntent = new Intent(this.getApplicationContext(), Trivia.class);
+                gameIntent.putExtra("note", notesForGame);
                 startActivityForResult(gameIntent, 3);
             }
             else if (gameId == 2){
                 gameIntent = new Intent(this.getApplicationContext(), MathGame.class);
+                gameIntent.putExtra("note", notesForGame);
                 startActivityForResult(gameIntent, 3);
             }
             else if (gameId == 3){
                 gameIntent = new Intent(this.getApplicationContext(), RPS.class);
+                gameIntent.putExtra("note", notesForGame);
                 startActivityForResult(gameIntent, 3);
             }
             else if (gameId == 4){
                 gameIntent = new Intent(this.getApplicationContext(), DefaultDisable.class);
+                gameIntent.putExtra("note", notesForGame);
                 startActivityForResult(gameIntent, 3);
             }
             else if (gameId == 5){
                 gameIntent = new Intent(this.getApplicationContext(), DefaultDisable.class);
+                gameIntent.putExtra("note", notesForGame);
                 startActivityForResult(gameIntent, 3);
             }
 
@@ -107,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
 
                 Alarm resultingAlarm = (Alarm) data.getSerializableExtra("alarm");
                 System.out.println("ONOFF AFTER POPUP IS: "+resultingAlarm.getOnOff());
-                addNewToDB(resultingAlarm, data.getExtras().getInt("spinner"));
+                addNewToDB(resultingAlarm, data.getExtras().getInt("spinner"), data.getExtras().getString("note"));
                 updateFragments();
             }
         }
@@ -121,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
                 for (int i =0; i <id; i++){
                     res.moveToNext();
                 }
-                db.updateTime(res.getInt(0), resultingAlarm.getHours(), resultingAlarm.getMinutes(), resultingAlarm.getRepeat(), res.getInt(5));
+                db.updateTime(res.getInt(0), resultingAlarm.getHours(), resultingAlarm.getMinutes(), resultingAlarm.getRepeat(), res.getInt(5), data.getExtras().getString("note"));
                 updateFragments();
             }
         }
@@ -152,6 +160,7 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
                 bundle.putString("repeat", res.getString(3));
                 bundle.putString("onoff", res.getString(4));
                 bundle.putInt("game", res.getInt(5));
+                bundle.putInt("note", res.getInt(6));
                 current.setArguments(bundle);
                 fragmentTransaction.add(R.id.fragmentContainer, current);
                 fragmentTransaction.commit();
@@ -174,8 +183,8 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
         populateAlarms();
     }
 
-    private void addNewToDB(Alarm alarm, int spinner){
-        boolean isInserted = db.insertData(alarm.getHours(), alarm.getMinutes(), alarm.getRepeat(), "on", spinner);
+    private void addNewToDB(Alarm alarm, int spinner, String notes){
+        boolean isInserted = db.insertData(alarm.getHours(), alarm.getMinutes(), alarm.getRepeat(), "on", spinner, notes);
         if (isInserted)
             Toast.makeText(MainActivity.this, "Alarm has been saved and set.", Toast.LENGTH_SHORT).show();
         else
@@ -203,6 +212,7 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
     public void editAlarm(AlarmFragment afrag) {
 
         int index = fragmentList.indexOf(afrag);
+
         Intent intent = new Intent(getApplicationContext(), AlarmPop.class);
         //if reason is 1, that means edit
         intent.putExtra("reason", 1);
@@ -212,9 +222,10 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
     }
 
     @Override
-    public void onOff(int id, boolean b, int hours, int minutes, String repeat, int spinPos) {
+    public void onOff(int id, boolean b, int hours, int minutes, String repeat, int spinPos, String notes) {
         calenders.put(id, Calendar.getInstance());
         alarmIntent.putExtra("spinner",spinPos);
+        alarmIntent.putExtra("note", notes);
         alarmIntent.putExtra("isOn", b);
 
         if (b){
