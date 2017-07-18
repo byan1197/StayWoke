@@ -44,7 +44,7 @@ public class MathGame extends AppCompatActivity {
         questions[6] = new Question("seven","-2",new String[]{"-3","-2","2","3"},"Solve for x");
         questions[7] = new Question("eight","12",new String[]{"12","11","14","13"},"Solve");
         questions[8] = new Question("nine","7",new String[]{"6","8","9","7"},"Solve");
-        questions[9] = new Question("nine","41",new String[]{"43","41","51","54"},"Solve");
+        questions[9] = new Question("ten","41",new String[]{"43","41","51","54"},"Solve");
         toBeAsked = (ImageView) findViewById(R.id.toBeAsked);
         a = (RadioButton) findViewById(R.id.a);
         b = (RadioButton) findViewById(R.id.b);
@@ -71,6 +71,7 @@ public class MathGame extends AppCompatActivity {
                         setup();
                     }
                     if(selected.getText().equals(answer)){
+                        RingtonePlayingService.mediaSong.stop();
                         setResult(Activity.RESULT_OK, returnIntent);
                         MathGame.this.finish();
                         tries = 2;

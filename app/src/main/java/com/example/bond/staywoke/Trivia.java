@@ -67,6 +67,7 @@ public class Trivia extends AppCompatActivity {
                         setup();
                     }
                     if(selected.getText().equals(answers.get(Integer.toString(choice)))){
+                        RingtonePlayingService.mediaSong.stop();
                         setResult(Activity.RESULT_OK, returnIntent);
                         Trivia.this.finish();
                         tries = 2;

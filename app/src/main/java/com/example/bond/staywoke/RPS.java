@@ -116,6 +116,7 @@ public class RPS extends AppCompatActivity {
         else {
             humanScore++;
             if (humanScore >= 3){
+                RingtonePlayingService.mediaSong.stop();
                 setResult(Activity.RESULT_OK, returnIntent);
                 RPS.this.finish();
             }

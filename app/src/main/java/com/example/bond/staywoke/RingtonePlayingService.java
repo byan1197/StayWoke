@@ -23,7 +23,7 @@ public class RingtonePlayingService extends Service{
     // We use it on Notification start, and to cancel it.
 
 
-    MediaPlayer mediaSong;
+    public static MediaPlayer mediaSong;
     int startId;
     boolean isRunning;
     String notes;
