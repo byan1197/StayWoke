@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/fragment_bg">
+        android:layout_above="@+id/addFAB"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="61dp"
+        android:layout_marginBottom="184dp">
 
         <LinearLayout
             android:id="@+id/container"
@@ -19,16 +27,21 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"></LinearLayout>
 
-            <ImageButton
-                android:id="@+id/addAlarmBtn"
-                style="@android:style/Widget.Material.ImageButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="false"
-                android:cropToPadding="false"
-                app:srcCompat="@android:drawable/ic_input_add" />
-
         </LinearLayout>
     </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/addFAB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="45dp"
+        android:layout_marginRight="45dp"
+        android:clickable="true"
+        app:backgroundTint="@android:color/holo_blue_light"
+        app:elevation="11dp"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/ic_add_alarm_white_45dp" />
 
 </RelativeLayout>

@@ -20,6 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static final String COL_3= "MINUTES";
     public static final String COL_4= "REPEAT";
     public static final String COL_5= "ONOFF";
+    public static final String COL_6= "GAME";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -27,7 +28,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table "+TABLE_NAME+" (ID INTEGER PRIMARY KEY AUTOINCREMENT, HOURS INTEGER, MINUTES INTEGER, REPEAT TEXT, ONOFF TEXT)");
+        db.execSQL("create table "+TABLE_NAME+" (ID INTEGER PRIMARY KEY AUTOINCREMENT, HOURS INTEGER, MINUTES INTEGER, REPEAT TEXT, ONOFF TEXT, GAME INTEGER)");
     }
 
     @Override
@@ -36,13 +37,14 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    public boolean insertData(int hours, int minutes, String repeat, String onoff){
+    public boolean insertData(int hours, int minutes, String repeat, String onoff, int spinnerPos){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2, hours);
         contentValues.put(COL_3, minutes);
         contentValues.put(COL_4, repeat);
         contentValues.put(COL_5, onoff);
+        contentValues.put(COL_6, spinnerPos);
         long result = db.insert(TABLE_NAME, null, contentValues);
         if (result == -1)
             return false;
@@ -56,13 +58,14 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return res;
     }
 
-    public boolean updateTime(int id, int hours, int minutes, String repeat){
+    public boolean updateTime(int id, int hours, int minutes, String repeat, int spinnerPos){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_1, id);
         contentValues.put(COL_2, hours);
         contentValues.put(COL_3, minutes);
         contentValues.put(COL_4, repeat);
+        contentValues.put(COL_6, spinnerPos);
         db.update(TABLE_NAME, contentValues, "ID = ?", new String[] {String.valueOf(id)});
 
         return true;

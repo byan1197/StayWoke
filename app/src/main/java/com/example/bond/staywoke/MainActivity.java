@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
     ArrayList<AlarmFragment> fragmentList = new ArrayList<>();
     PendingIntent pendingIntent;
     Context context;
+    Intent alarmIntent;
     AlarmManager alarmManager;
 
     @Override
@@ -39,13 +41,15 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
 
         //instance variables
         this.context=this;
+        alarmIntent = new Intent(context, AlarmReceiver.class);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         db = new DatabaseHelper(this);
         populateAlarms();
         final FragmentManager fragmentManager = getFragmentManager();
         cal = Calendar.getInstance();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        ImageButton addAlarm = (ImageButton)findViewById(R.id.addAlarmBtn);
+        //ImageButton addAlarm = (ImageButton)findViewById(R.id.addAlarmBtn);
+        FloatingActionButton addAlarm = (FloatingActionButton) findViewById(R.id.addFAB);
 
         //Listeners
         addAlarm.setOnClickListener(new OnClickListener() {
@@ -67,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
             if (resultCode == Activity.RESULT_OK) {
 
                 Alarm resultingAlarm = (Alarm) data.getSerializableExtra("alarm");
-                addNewToDB(resultingAlarm);
+                addNewToDB(resultingAlarm, data.getExtras().getInt("spinner"));
                 updateFragments();
             }
         }
@@ -75,14 +79,13 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
             if (resultCode == Activity.RESULT_OK) {
                 Alarm resultingAlarm = (Alarm) data.getSerializableExtra("alarm");
                 int id = data.getExtras().getInt("id");
-                System.out.println("alarm time: "+ String.valueOf(resultingAlarm.getHours())+":"+String.valueOf(resultingAlarm.getHours()));
-                System.out.println("id is: "+ String.valueOf(id));
+
                 Cursor res = db.getAllData();
                 res.moveToFirst();
                 for (int i =0; i <id; i++){
                     res.moveToNext();
                 }
-                db.updateTime(res.getInt(0), resultingAlarm.getHours(), resultingAlarm.getMinutes(), resultingAlarm.getRepeat());
+                db.updateTime(res.getInt(0), resultingAlarm.getHours(), resultingAlarm.getMinutes(), resultingAlarm.getRepeat(), res.getInt(5));
                 updateFragments();
             }
         }
@@ -102,6 +105,8 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
                 bundle.putInt("hours", res.getInt(1));
                 bundle.putInt("minutes", res.getInt(2));
                 bundle.putString("repeat", res.getString(3));
+                bundle.putString("onoff", res.getString(4));
+                bundle.putInt("game", res.getInt(5));
                 current.setArguments(bundle);
                 fragmentTransaction.add(R.id.fragmentContainer, current);
                 fragmentTransaction.commit();
@@ -124,8 +129,8 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
         populateAlarms();
     }
 
-    private void addNewToDB(Alarm alarm){
-        boolean isInserted = db.insertData(alarm.getHours(), alarm.getMinutes(), alarm.getRepeat(), alarm.getOnOff());
+    private void addNewToDB(Alarm alarm, int spinner){
+        boolean isInserted = db.insertData(alarm.getHours(), alarm.getMinutes(), alarm.getRepeat(), alarm.getOnOff(), spinner);
         if (isInserted)
             Toast.makeText(MainActivity.this, "Alarm has been saved and set.", Toast.LENGTH_SHORT).show();
         else
@@ -135,7 +140,6 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
     @Override
     public void deleteAlarm(AlarmFragment afrag) {
         int index = fragmentList.indexOf(afrag);
-        System.out.println(index);
         fragmentList.remove(index);
         Cursor res = db.getAllData();
         res.moveToFirst();
@@ -163,8 +167,9 @@ public class MainActivity extends AppCompatActivity implements AlarmFragment.OnD
     }
 
     @Override
-    public void onOff(int id, boolean b, int hours, int minutes, String repeat) {
-        Intent alarmIntent = new Intent(context, AlarmReceiver.class);
+    public void onOff(int id, boolean b, int hours, int minutes, String repeat, int spinPos) {
+
+        alarmIntent.putExtra("spinner",spinPos);
         alarmIntent.putExtra("isOn", b);
         if (b){
             db.updateOnOff(id, "on");

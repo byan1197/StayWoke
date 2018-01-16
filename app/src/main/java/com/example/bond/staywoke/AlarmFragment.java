@@ -28,6 +28,8 @@ public class AlarmFragment extends Fragment {
     ImageButton editButton, deleteButton;
     Alarm alarm;
     Bundle bundle;
+    int spinPos = -123;
+    boolean isOnFromDB = false;
     Boolean isAM = true;
     TextView clockTV, repeatTV;
     DatabaseHelper db;
@@ -49,17 +51,20 @@ public class AlarmFragment extends Fragment {
         //bundle
         bundle = getArguments();
         if (bundle!= null){
-            int hours = -1;
+
+            int hours = 123456;
+
             if (bundle.getInt("hours") >12){
                 hours = bundle.getInt("hours") -12;
                 isAM = false;
             }else{
+                hours = bundle.getInt("hours");
                 isAM = true;
             }
             if (hours <= 0){
                hours = 12;
             }
-
+            System.out.println("HOURS IN FRAG: "+hours);
             String minutes = "";
             if (bundle.getInt("minutes")<10)
                 minutes = "0";
@@ -71,9 +76,14 @@ public class AlarmFragment extends Fragment {
                 minutes+=" PM";
             clockTV.setText(String.valueOf(hours)+":"+minutes);
             repeatTV.setText(bundle.getString("repeat"));
+            spinPos = bundle.getInt("game");
+            isOnFromDB = (bundle.getString("onoff")== "on"? true:false);
+
         }
+
         onOffSwitch.setChecked(true);
-        onDeleteAlarmListener.onOff(bundle.getInt("id"), true, bundle.getInt("hours"), bundle.getInt("minutes"), bundle.getString("repeat"));
+        if (isOnFromDB)
+            onDeleteAlarmListener.onOff(bundle.getInt("id"), true, bundle.getInt("hours"), bundle.getInt("minutes"), bundle.getString("repeat"), spinPos);
 
         //LISTENERS
         editButton.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +102,7 @@ public class AlarmFragment extends Fragment {
         onOffSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                onDeleteAlarmListener.onOff(bundle.getInt("id"), b, bundle.getInt("hours"), bundle.getInt("minutes"), bundle.getString("repeat"));
+                onDeleteAlarmListener.onOff(bundle.getInt("id"), b, bundle.getInt("hours"), bundle.getInt("minutes"), bundle.getString("repeat"), spinPos);
             }
         });
 
@@ -102,7 +112,7 @@ public class AlarmFragment extends Fragment {
     public interface OnDeleteAlarmListener{
         public void deleteAlarm(AlarmFragment afrag);
         public void editAlarm(AlarmFragment afrag);
-        public void onOff(int id, boolean b, int hours, int minutes, String repeat);
+        public void onOff(int id, boolean b, int hours, int minutes, String repeat, int pos);
     }
 
 

@@ -1,13 +1,19 @@
 package com.example.bond.staywoke;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
@@ -22,7 +28,8 @@ public class AlarmPop extends Activity {
     int reason;
     TimePicker tp;
     ToggleButton[] dotw= new ToggleButton[7];
-
+    Spinner spinner;
+    ArrayAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,6 +50,10 @@ public class AlarmPop extends Activity {
         }
 
         //Instance variablezzzz and SET UP
+        spinner = (Spinner)findViewById(R.id.puzzleSpinner);
+        adapter = ArrayAdapter.createFromResource(this, R.array.gameArray, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
@@ -50,7 +61,7 @@ public class AlarmPop extends Activity {
         DatabaseHelper db = new DatabaseHelper(this);
         String repeatStr = "";
 
-        getWindow().setLayout((int)(width*.8), (int)(height*.8));
+        getWindow().setLayout((int)(width*.9), (int)(height*.9));
         Button saveButton = (Button) findViewById(R.id.saveBtn);
         Button exitButton = (Button) findViewById(R.id.exitBtn);
         tp = (TimePicker) findViewById(R.id.clockPicker);
@@ -152,11 +163,27 @@ public class AlarmPop extends Activity {
                     returnIntent.putExtra("id", extras.getInt("id"));
                 }
                 returnIntent.putExtra("alarm", alarm);
+                returnIntent.putExtra("spinner", spinner.getSelectedItemPosition());
                 setResult(Activity.RESULT_OK, returnIntent);
                 AlarmPop.this.finish();
             }
         });
 
+    }
+
+    //Minimizes keyboard when touch on screen
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View view = getCurrentFocus();
+        if (view != null && (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_MOVE) && view instanceof EditText && !view.getClass().getName().startsWith("android.webkit.")) {
+            int scrcoords[] = new int[2];
+            view.getLocationOnScreen(scrcoords);
+            float x = ev.getRawX() + view.getLeft() - scrcoords[0];
+            float y = ev.getRawY() + view.getTop() - scrcoords[1];
+            if (x < view.getLeft() || x > view.getRight() || y < view.getTop() || y > view.getBottom())
+                ((InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow((this.getWindow().getDecorView().getApplicationWindowToken()), 0);
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
 
